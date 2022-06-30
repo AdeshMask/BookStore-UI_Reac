@@ -21,75 +21,84 @@ class BookHome extends Component {
 fetchData() {
   BookServices.getAllBooks().then((response) => {
       this.setState({ employee: response.data.data });
+      console.log(response.data.data);
   });
 }
 componentDidMount() {
   this.fetchData();
-  console.log(this.props)
 }
 
 
 render() {
+  
   return (
+    
     <div>    
       <div class="cards">
-        {/* <section>
-        <article class="card">
-          <img src={Book1} alt="Sample photo"/>
-          <div class="text">
-            <h3>Rich Dad Poor Dad</h3>
-            <p>Robert T Kiyosaki</p>
-            <p class="text">RS.450</p>
-            <button>Add to Bag</button>
-          </div>
-        </article>
-        </section> */}
-       
-       <section>
+        <section>
         <article class="card">
         <div className="table-main">
 			  <table id="table-display" className="table">
 				{<tr>
+          <img src={Book1} alt="Sample photo"/>
+          <div class="text">
+            <h3>{this.state.bookName}</h3>
+            <p>{this.state.bookAuthor}</p>
+            <p class="text">RS.450</p>
+            <button>Add to Bag</button>        
 					{/* <th>Profile</th> */}
-					<th>Book Name</th>
+					{/* <th>Book Name</th>
 					<th>Author Name</th>
 					<th>Price</th>
-					<th>Book Quantity</th>
+					<th>Book Quantity</th> */}
+          </div>
 				</tr>}
 				<tbody>
                     {this.state.books && this.state.books.map((book,index) => (
-                        <tr key={`${index}`}>                             
-                            <td>
-                                <img src={ book.profilePic=== "../../assests/Ellipse -3.png" ? Book1 :
-                                book.profilePic=== "../../assests/Ellipse -1.png" ? Book2 :
-                                book.profilePic=== "../../assests/Ellipse -7.png" ? Book3 : Book4 
-                                } alt="ProfilePic" srcSet="" /></td>
-                            <td>{book.bookName}</td>
-                            <td>{book.authorName}</td>
-                            <td>{book.bookQuantity}</td>
-							              <td>{book.price}</td>
-                            <td>
-                            <img src="{Delete}" alt="delete" onClick={() =>
-                                                    this.deleteBook(book.id)}/>
+                        // <tr key={`${index}`}>   
+                        <h3>{book.bookName}</h3>                          
+                        //     <td>
+                        //         <img src={ book.profilePic=== "../../assests/Ellipse -3.png" ? Book1 :
+                        //         book.profilePic=== "../../assests/Ellipse -1.png" ? Book2 :
+                        //         book.profilePic=== "../../assests/Ellipse -7.png" ? Book3 : Book4 
+                        //         } alt="ProfilePic" srcSet="" /></td>
+                        //     <td>{book.bookName}</td>
+                        //     <td>{book.authorName}</td>
+                        //     <td>{book.bookQuantity}</td>
+							          //     <td>{book.price}</td>
+                        //     <td>
+                        //     <img src="{Delete}" alt="delete" onClick={() =>
+                        //                             this.deleteBook(book.id)}/>
                             
-                            <img src="{Edit}" alt="edit" onClick={() =>
-                                                    this.updateBook(book.id)} />
-                            </td>
-                        </tr>
+                        //     <img src="{Edit}" alt="edit" onClick={() =>
+                        //                             this.updateBook(book.id)} />
+                        //     </td>
+                        // </tr>
                     ))}
                 </tbody>
 			</table>
     	</div>
         </article>
         </section>
-       
-       {/* <section>
+        {this.state.books && this.state.books.map((book,index) => (
+        <section>
+        <article class="card">
+          <img src={Book2}/>
+          <div class="text">
+            <h3>Harry Potter</h3>
+            <p></p>
+            <button>Add to Bag</button>
+          </div>
+        </article>
+        </section>
+        ))}
+       <section>
         <article class="card">
           <img src={Book3}/>
           <div class="text">
-            <h3>Dynamically Procrastinate</h3>
-            <p>Completely synergize resource taxing relationships via premier niche markets.</p>
-            <button>Read more</button>
+            <h3>Half Girlfriend</h3>
+            <p></p>
+            <button>Add to Bag</button>
           </div>
         </article>
         </section>
@@ -98,9 +107,9 @@ render() {
         <article class="card">
           <img src={Book4}/>
           <div class="text">
-            <h3>Best in class</h3>
-            <p>Imagine jumping into that boat, and just letting it sail wherever the wind takes you...</p>
-            <button>Just do it...</button>
+            <h3>The Line Become a River</h3>
+            <p></p>
+            <button>Add to Bag</button>
           </div>
         </article>
         </section>
@@ -110,9 +119,9 @@ render() {
         <article class="card">
           <img src={Book5} alt="Sample photo"/>
           <div class="text">
-            <h3>Dynamically innovate supply chains</h3>
-            <p>Holisticly predominate extensible testing procedures for reliable supply chains.</p>
-            <button>Here's why</button>
+            <h3>The visionist</h3>
+            <p></p>
+            <button>Add to Bag</button>
           </div>
         </article>
         </section>
@@ -121,12 +130,31 @@ render() {
         <article class="card">
           <img src={Book6} alt="Sample photo"/>
           <div class="text">
-            <h3>Sanity check</h3>
-            <p>Objectively innovate empowered manufactured products whereas parallel platforms.</p>
-            <button>Stop here</button>
+            <h3>Dont make me think</h3>
+            <p></p>
+            <button>Add to Bag</button>
           </div>
         </article>
-        </section> */}
+        </section>
+       
+       
+    
+        {/* <th>
+        <div>
+        <section>
+        <article class="card">
+        <img src={Book2}/>
+        <div class="text">
+        <h3>Harry Potter</h3>
+        <p></p>
+        <button>Add to Bag</button>
+        </div>
+        </article>
+        </section>   
+        
+        </div> 
+</ul>  */}
+
         </div>
       </div>
   )}

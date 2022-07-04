@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const id=localStorage.getItem('Authorization')
+const userId = JSON.parse(id);
 class UserService {
     baseUrl ="http://localhost:8080/user";
 
@@ -10,17 +12,13 @@ class UserService {
         return axios.get(`${this.baseUrl}/get-all`);
       }
 
-    //   getEmployeeById(employeeId) {
-    //     return axios.get(`${this.baseUrl}/search/${employeeId}`);
-    //   }
+      getUserById(userid) {
+        return axios.get(`${this.baseUrl}/getuser/${userid}`);
+      }
+      getUserEmailId(data) {
+        return axios.get(`${this.baseUrl}/user`, data);
+      }
 
-    //   updateEmployee(employeeId,data) {
-    //     return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);
-    //   }
-
-    //   deleteEmployee(employeeId) {
-    //     return axios.delete(`${this.baseUrl}/remove/${employeeId}`);
-    //   }
     userLogin(data) {
       return axios.post(`${this.baseUrl}/userlogin`,data);
     }

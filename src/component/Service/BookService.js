@@ -11,9 +11,9 @@ class BookService {
         return axios.get(`${this.baseUrl}/get-all`);
       }
 
-    //   getEmployeeById(employeeId) {
-    //     return axios.get(`${this.baseUrl}/search/${employeeId}`);
-    //   }
+      getBookById(employeeId) {
+        return axios.get(`${this.baseUrl}/search/${employeeId}`);
+      }
 
     //   updateEmployee(employeeId,data) {
     //     return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);

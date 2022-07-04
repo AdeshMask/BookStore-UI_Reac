@@ -2,17 +2,13 @@ import React,{Component} from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Link,withRouter  } from 'react-router-dom';
-import Image1 from '../../assests/RDPD.jpeg'
-import Image2 from '../../assests/Harry Potter.jpeg'
-import Image3 from '../../assests/The visionist.jpeg'
-import Image4 from '../../assests/The line Become a River.jpeg'
-import Image5 from '../../assests/Dont make me think.jpeg'
-import Image6 from '../../assests/Half Girlfriend.jpeg'
 import BookServices from '../../component/Service/BookService'
+import Button from '@mui/material/Button';
+import Header from '../Header/Header'
+
 
 class Home2 extends Component {
 
@@ -36,48 +32,44 @@ fetchData() {
 }
 
   render =() => {
-  return (
-    
-    <div style={{ width: "100%"}}>
-      
+  return (<>
+    <Header/>
+    <div style={{ width: "100%", margin: "3rem"}}>
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
           alignContent: "stretch",
           bgcolor: "background.paper",
-          gap: "2.5rem"
+          gap: "2.5rem",
         }}
       >
         {this.state.books && this.state.books.map((book,index) => (
         <Card
           sx={{
             height: "100%",
-            gap: "2.5rem",
             display: "flex",
             flexDirection: "column",
-            
+            border: "1px solid",
+            padding: "1rem"
+
           }}
         >
           <CardActionArea>
-            <CardMedia component="img" height="150" src = {book.profilePic}/>
+            <CardMedia component="img" height="150" padding="1rem" width="50" src ={book.profilePic}/>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
                  <h4>{book.bookName}</h4>
-
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
+                 <h6>{book.authorName}</h6>
                 <h5>RS.{book.price}</h5>
-              </Typography>
+              <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton">Add to Cart</Button>
             </CardContent>
           </CardActionArea>
-          
         </Card>
         ))}
       </Box>
     </div>
+    </> 
   );
 }
 }
-
 export default withRouter(Home2);

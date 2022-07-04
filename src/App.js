@@ -1,24 +1,18 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
-import Home from './component/Home/BookHome'
-import Header from './component/Header/Header'
 import Regiser from './component/UserRegistration/RegisterForm'
-import Login from './component/Login/Login'
-import Home2 from './component/Home/HOme2'
+import Login2 from './component/Login/Login2'
+import Home from './component/Home/HOme2'
 
 function App() {
   return (
     <div className="App">
-      <Header/>
+     
       <Router>
           <Switch>
-            <Route path="/home"><Home /></Route>
             <Route path="/register"><Regiser /></Route>
-            <Route path="/login"><Login /></Route>
-            <Route path="/home2"><Home2 /></Route>
-            {/* <Route path="/form"><Form /></Route>
-            <Route path="/newform"><NewForm /></Route>
-            <Route exact path="/AddressBookForm/:id"><Form /></Route> */}
+            <Route path="/login"><Login2 /></Route>
+            <Route path="/home"><Home /></Route>
           </Switch>
         </Router>      
     </div>

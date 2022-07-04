@@ -26,7 +26,7 @@ const RegistrationForm = (props) => {
         event.preventDefault();
         
         let object = {
-            id: formValue.employeeId,
+            id: formValue.userid,
             fullName: formValue.fullName,
             userName: formValue.userName,
             password: formValue.password,
@@ -91,12 +91,9 @@ const RegistrationForm = (props) => {
                     <br></br>
                     <div className="submit-reset">
                     <div className="buttonParent">
-                        <Link to="/"> <Button variant="contained" size="large" className="resetButton
-                        button cancleButton">Cancel</Button></Link>
                             <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={login} >Submit</Button>
                             <Link to="/login"> <Button variant="contained" size="large" type="reset" className="button resetButton" id="resetButton" onClick={onReset}>Login</Button></Link>
                             
-                            <Button variant="contained" size="large" type="reset" className="button resetButton" id="resetButton" onClick={onReset}>Reset</Button>
                         </div>
                     </div>
                 </form>

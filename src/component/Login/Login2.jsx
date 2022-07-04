@@ -1,38 +1,42 @@
 import React, {useState, useEffect} from 'react'
-import './Login.css'
+import './Login2.css'
 import { Link, useParams,useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import User from '../Service/UserService'
-
+import SnackMessages from './Message'
+import {withRouter} from 'react-router';
 
 const Login = (props) => {
     let history = useHistory();
     let startValue = {
         password: "",
         emailId: "",
+        error : "",
     }
 
     const [formValue, setForm] = useState(startValue)
-    const onReset = () => {
-        setForm({
-            ...startValue, id: formValue.id, isUpdate: formValue.isUpdate 
-        });
-    };
 
-    const login = async (event) => {
+    const login = (event) => {
         event.preventDefault();
-        
         let object = {
             password: formValue.password,
             emailId: formValue.emailId
         };
+        console.log(object)
 
         if(formValue.userName === "" && formValue.password === "" && formValue.emailId === ""){
             alert("Enter input all Fileds")
         }
         else{
             User.userLogin(object).then((response) => {
-                alert("Login Successful!!",response)
+                let severity=response.data.message==="LOGIN SUCCESSFUL" ? "success" : "error";
+                console.log(severity);
+                severity === "success"?localStorage.setItem('Authorization',response.data.data.id) : localStorage.setItem('Authorization',"null")
+                severity === "success"?localStorage.setItem('Name',response.data.data.fullName) : localStorage.setItem('Name',"null")
+                console.log(severity);
+                console.log(response.data.data.id)
+                console.log(response.data.data.fullName)
+                console.log(response.headers)
                 history.push("/home");
               })  
         }
@@ -46,10 +50,9 @@ const Login = (props) => {
         <div>
             <div className="form-content">
                 <form className="form" action="#" onSubmit={login}>
-                    <div className="form-head">
+                    <div className="formhead">
                         User Login Form
                     </div>
-                   
                     <div className="row-content">
                         <label htmlFor="name" className="label text">Email Id</label>
                         <input type="text" className="input" id="emailId" name="emailId" value={formValue.emailId}
@@ -63,17 +66,22 @@ const Login = (props) => {
                         <error-output className="text-error" htmlFor="name"></error-output>
                     </div>
                     <div className="submit-reset">
-                    <div className="buttonParent">
-                        <Link to="/register"> <Button variant="contained" size="large" className="resetButton
-                        button cancleButton">Sign Up</Button></Link>
+                        <div className="buttonParent">
+                            <Link to="/register"> <Button variant="contained" size="large" className="resetButton
+                                button cancleButton">Sign Up</Button></Link>
                             <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={login} >Login</Button>
-                            <Button variant="contained" size="large" type="reset" className="button resetButton" id="resetButton" onClick={onReset}>Reset</Button>
                         </div>
                     </div>
+                   
                 </form>
-            </div >
-        </div >
+                
+            </div>
+            {formValue.snackFlag &&
+                <SnackMessages message={this.state.snackMessage} severity={this.state.severity} />
+                }
+            
+        </div>
     )
 }
 
-export default Login;
+export default withRouter(Login);

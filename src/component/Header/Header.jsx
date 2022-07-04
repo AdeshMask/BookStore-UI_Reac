@@ -12,10 +12,10 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import MailIcon from '@mui/icons-material/Mail';  
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -169,10 +169,7 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            Bookstore
-          </Typography>
+            sx={{ display: { xs: 'none', sm: 'block' } }}>Bookstore</Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

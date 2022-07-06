@@ -32,9 +32,11 @@ const Login = (props) => {
                 let severity=response.data.message==="LOGIN SUCCESSFUL" ? "success" : "error";
                 console.log(severity);
                 severity === "success"?localStorage.setItem('Authorization',response.data.data.id) : localStorage.setItem('Authorization',"null")
+                severity === "success"?localStorage.setItem('Token',response.data.data.token) : localStorage.setItem('Token',"null")
                 severity === "success"?localStorage.setItem('Name',response.data.data.fullName) : localStorage.setItem('Name',"null")
                 console.log(severity);
                 console.log(response.data.data.id)
+                console.log(response.data.data.token)
                 console.log(response.data.data.fullName)
                 console.log(response.headers)
                 history.push("/home");

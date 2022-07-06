@@ -1,29 +1,32 @@
 import axios from "axios";
 
-class BookService {
-    baseUrl ="http://localhost:8080/book";
+const id=localStorage.getItem('Authorization')
+const userId = JSON.parse(JSON.stringify(id));
+const token=localStorage.getItem('Token')
+class CartService {
+    baseUrl ="http://localhost:8080/cart";
 
-    addBook(data) {
-        return axios.post(`${this.baseUrl}/add`, data);
+    addCartItem(data) {
+        return axios.post(`${this.baseUrl}/add`, data,{params:{token: token}});
       }
     
       getAll() {
-        return axios.get(`${this.baseUrl}/get-all`);
+        return axios.get(`${this.baseUrl}/get-all`, {params:{token: token}});
       }
 
-      getBookById(employeeId) {
-        return axios.get(`${this.baseUrl}/search/${employeeId}`);
+      getBookById(userId) {
+        return axios.get(`${this.baseUrl}/search/${userId}`,{params:{token: token}});
       }
 
     //   updateEmployee(employeeId,data) {
     //     return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);
     //   }
 
-    //   deleteEmployee(employeeId) {
-    //     return axios.delete(`${this.baseUrl}/remove/${employeeId}`);
-    //   }
+      deleteCartItem(CartItemId) {
+        return axios.delete(`${this.baseUrl}/remove/${CartItemId}`, {params:{token: token}});
+      }
 
 }
 
 
-export default new BookService();
+export default new CartService();

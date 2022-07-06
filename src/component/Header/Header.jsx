@@ -15,6 +15,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';  
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link,withRouter  } from 'react-router-dom';
+import CartService from '../Service/CartService'
+import { useState, useEffect } from "react";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -76,6 +79,20 @@ export default function PrimarySearchAppBar() {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const [cartDetails, setCartDetails] = useState([]);
+  useEffect(() => {
+    fetchCartDetails();
+  });
+
+  const fetchCartDetails = () => {
+    CartService.getAll().then((response) => {
+        // console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -107,7 +124,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{localStorage.getItem('Name')}</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -181,11 +198,11 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <IconButton aria-label="cart">
-      <StyledBadge badgeContent={4} color="secondary">
+          <Link to="/carts"><IconButton aria-label="cart">
+      <StyledBadge badgeContent={cartDetails.length} color="secondary">
         <ShoppingCartIcon />
       </StyledBadge>
-    </IconButton>
+    </IconButton></Link>
             <IconButton
               size="large"
               edge="end"

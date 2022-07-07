@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link,withRouter  } from 'react-router-dom';
-import CartService from '../Service/CartService'
+import CartServices from '../Service/CartService'
 import { useState, useEffect } from "react";
 
 
@@ -80,17 +80,15 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(event.currentTarget);
   };
   const [cartDetails, setCartDetails] = useState([]);
+
   useEffect(() => {
     fetchCartDetails();
-  });
+  },[]);
 
   const fetchCartDetails = () => {
-    CartService.getAll().then((response) => {
-        // console.log(response);
+    CartServices.getAll().then((response) => {
+        setCartDetails(response.data.data)
       })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
 
@@ -125,7 +123,9 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>{localStorage.getItem('Name')}</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link to="/login">
+      <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+      </Link>
     </Menu>
   );
 
@@ -148,7 +148,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={cartDetails.length} color="error">
             <MailIcon />
           </Badge>
         </IconButton>

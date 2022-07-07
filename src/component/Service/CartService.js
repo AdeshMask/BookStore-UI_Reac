@@ -21,9 +21,12 @@ class CartService {
     //   updateEmployee(employeeId,data) {
     //     return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);
     //   }
+    // deleteCartItem(bookId) {
+    //       return axios.put(`${this.baseUrl}/delete/${bookId}`, {params:{token: token}});
+    //     }
 
-      deleteCartItem(CartItemId) {
-        return axios.delete(`${this.baseUrl}/remove/${CartItemId}`, {params:{token: token}});
+      deleteCartItem(bookId) {
+        return axios.delete(`${this.baseUrl}/remove/${bookId}`, {params:{token: token}});
       }
 
 }

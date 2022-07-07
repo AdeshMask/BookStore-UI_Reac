@@ -6,11 +6,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
 import Header from '../Header/Header'
-import Image from '../../assests/RDPD.jpeg'
+import { Link,withRouter  } from 'react-router-dom';
 import './Carts.css'
 import CartServices from '../Service/CartService'
 
@@ -19,7 +18,7 @@ import CartServices from '../Service/CartService'
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({   
 
   root: {
-    margin: "7rem",
+    margin: "1rem",
     borderRadius: spacing(2), // 16px
     transition: '0.3s',
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
@@ -71,7 +70,6 @@ export const BlogCardDemo = React.memo(function BlogCard() {
 
 
   const [qty, setQty] = useState(0);
-
   function handleDecrement() {
     if(qty==0){
       return
@@ -80,10 +78,10 @@ export const BlogCardDemo = React.memo(function BlogCard() {
     setQty(qty - 1);
     }
   }
-
   function handleIncrement() {
     setQty(qty + 1);
   }
+
   
 //Fetching Data
   const [cartDetails, setCartDetails] = useState([]);
@@ -99,41 +97,53 @@ export const BlogCardDemo = React.memo(function BlogCard() {
   };
   console.log(cartDetails);
 
-//   deleteCartItem=(cartItemId) => {
-//     let id = parseInt(cartItemId)
-//     CartServices.deleteEmployee(id);
-//     window.location.reload();
-// };
+  const deleteCartItem=(bookId) => {
+    console.log(bookId);
+    CartServices.deleteCartItem(bookId);
+    window.location.reload();
+};
+
+const updateQuantity=(qty) => {
+    let quantity = qty
+}
+const getOrder=(cartId) => {
+  this.props.history.push(`Order/${cartId}`);
+  console.log(cartId);
+}
   
 return(<>
  <Header/>
-  <Typography style={{ }}>Cart Count:{cartDetails.length}</Typography>
-  {cartDetails.map((cartItem, i) => {
+  <Typography style={{marginRight:"40rem",marginTop:"5rem" }}>Cart Count:{cartDetails.length}</Typography>
+  {cartDetails.map((cartItem, index) => {  
   return (<>
+     
     <Card className={cx(styles.root, shadowStyles.root)}>
-      
       <CardMedia
         className={styles.media}
-        image={Image}
+        image={cartItem.bookId.profilePic}
       />
       <CardContent>
-       <h2>Rich Dad Poor Dad</h2>
-       <h5>by Robert T.Kiyosaki</h5>
-        <h4>Rs.450</h4>
+        
+       <h2>{cartItem.bookId.bookName}</h2>
+       <h5>by {cartItem.bookId.authorName}</h5>
+        <h5>Rs.{cartItem.bookId.price}</h5>
         <h5>Quantity</h5>
         <div class="wrapper">
             <span class="minus" onClick={handleDecrement}>-</span>
-            <span class="num" id="root" >{1+ qty}</span>
+            <span class="num" id="root" onClick = {()=> updateQuantity(cartItem.bookId.quantity)}>{qty+1}</span>
             <span class="plus" onClick={handleIncrement}>+</span>
         </div>
-        <p>Total Price <br/>{450+450 *qty }</p>
-        <Button className={buttonStyles}>Continue</Button>
-        <button onClick="" >Remove Item</button>
+        <h4>Total Price <br/>{cartItem.bookId.price+cartItem.bookId.price * qty}</h4>
+        <Link to="/order">
+        <Button className={buttonStyles} onClick={() =>getOrder(cartItem.cartId)} >Continue</Button></Link>
+        <Button onClick={() =>deleteCartItem(cartItem.cartId)} >Remove Item</Button>
+        
       </CardContent>
     </Card>
     </>
-  );})}
+  );
+})}
   </>)
 });
 
-export default BlogCardDemo
+export default withRouter(BlogCardDemo)

@@ -41,7 +41,8 @@ const RegistrationForm = (props) => {
             User.addUser(object).then((response) => {
                 console.log(response);
                 alert("Data Added!!",response)
-              })  
+              })
+        localStorage.clear();  
         alert("Regisraion Success....")
         history.push("/login");
         }

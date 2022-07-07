@@ -21,8 +21,14 @@ class BookService {
 
     //   deleteEmployee(employeeId) {
     //     return axios.delete(`${this.baseUrl}/remove/${employeeId}`);
-    //   }
+    //   }sortByHigher
 
+    sortByHigher() {
+      return axios.get(`${this.baseUrl}/get-high`);
+    }
+    sortByLower() {
+      return axios.get(`${this.baseUrl}/get-low`);
+    }
 }
 
 

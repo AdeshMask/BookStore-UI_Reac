@@ -23,7 +23,7 @@ const Login = (props) => {
             emailId: formValue.emailId
         };
         console.log(object)
-
+        window.localStorage.clear();
         if(formValue.userName === "" && formValue.password === "" && formValue.emailId === ""){
             alert("Enter input all Fileds")
         }
@@ -40,6 +40,7 @@ const Login = (props) => {
                 console.log(response.data.data.fullName)
                 console.log(response.headers)
                 history.push("/home");
+                window.location.reload();
               })  
         }
     }

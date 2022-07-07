@@ -17,8 +17,7 @@ function App() {
             <Route path="/login"><Login2 /></Route>
             <Route path="/home"><Home /></Route>
             <Route path="/carts"><Carts /></Route>
-            <Route path="/order"><Order /></Route>
-            <Route exact path="/cart"><Cart /></Route>
+            <Route exact path="/Order/:id"><Order /></Route>
           </Switch>
         </Router>      
     </div>

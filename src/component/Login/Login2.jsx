@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './Login2.css'
-import { Link, useParams,useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import User from '../Service/UserService'
 import SnackMessages from './Message'
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 
 const Login = (props) => {
     let history = useHistory();
     let startValue = {
         password: "",
         emailId: "",
-        error : "",
+        error: "",
     }
 
     const [formValue, setForm] = useState(startValue)
@@ -24,16 +24,16 @@ const Login = (props) => {
         };
         console.log(object)
         window.localStorage.clear();
-        if(formValue.userName === "" && formValue.password === "" && formValue.emailId === ""){
+        if (formValue.userName === "" && formValue.password === "" && formValue.emailId === "") {
             alert("Enter input all Fileds")
         }
-        else{
+        else {
             User.userLogin(object).then((response) => {
-                let severity=response.data.message==="LOGIN SUCCESSFUL" ? "success" : "error";
+                let severity = response.data.message === "LOGIN SUCCESSFUL" ? "success" : "error";
                 console.log(severity);
-                severity === "success"?localStorage.setItem('Authorization',response.data.data.id) : localStorage.setItem('Authorization',"null")
-                severity === "success"?localStorage.setItem('Token',response.data.data.token) : localStorage.setItem('Token',"null")
-                severity === "success"?localStorage.setItem('Name',response.data.data.fullName) : localStorage.setItem('Name',"null")
+                severity === "success" ? localStorage.setItem('Authorization', response.data.data.id) : localStorage.setItem('Authorization', "null")
+                severity === "success" ? localStorage.setItem('Token', response.data.data.token) : localStorage.setItem('Token', "null")
+                severity === "success" ? localStorage.setItem('Name', response.data.data.fullName) : localStorage.setItem('Name', "null")
                 console.log(severity);
                 console.log(response.data.data.id)
                 console.log(response.data.data.token)
@@ -41,7 +41,7 @@ const Login = (props) => {
                 console.log(response.headers)
                 history.push("/home");
                 window.location.reload();
-              })  
+            })
         }
     }
     const onNameChange = (event) => {
@@ -70,19 +70,19 @@ const Login = (props) => {
                     </div>
                     <div className="submit-reset">
                         <div className="buttonParent">
-                            <Link to="/register"> <Button variant="contained" size="large" className="resetButton
+                            <Link to="/register" underline="none"> <Button variant="contained" size="large" className="resetButton
                                 button cancleButton">Sign Up</Button></Link>
                             <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={login} >Login</Button>
                         </div>
                     </div>
-                   
+
                 </form>
-                
+
             </div>
             {formValue.snackFlag &&
                 <SnackMessages message={this.state.snackMessage} severity={this.state.severity} />
-                }
-            
+            }
+
         </div>
     )
 }

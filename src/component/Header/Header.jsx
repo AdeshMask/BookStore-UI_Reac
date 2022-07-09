@@ -12,10 +12,10 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';  
+import MailIcon from '@mui/icons-material/Mail';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link,withRouter  } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import CartServices from '../Service/CartService'
 import { useState, useEffect } from "react";
 
@@ -47,13 +47,13 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
-    '& .MuiBadge-badge': {
-      right: -3,
-      top: 13,
-      border: `2px solid ${theme.palette.background.paper}`,
-      padding: '0 4px',
-    },
-  }));
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -83,12 +83,12 @@ export default function PrimarySearchAppBar() {
 
   useEffect(() => {
     fetchCartDetails();
-  },[]);
+  }, []);
 
   const fetchCartDetails = () => {
     CartServices.getAll().then((response) => {
-        setCartDetails(response.data.data)
-      })
+      setCartDetails(response.data.data)
+    })
   };
 
 
@@ -124,7 +124,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>{localStorage.getItem('Name')}</MenuItem>
       <Link to="/login">
-      <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
       </Link>
     </Menu>
   );
@@ -182,11 +182,12 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}>Bookstore</Typography>
+          <Link to="/home" color="inherit">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}><h3>Bookstore</h3></Typography></Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -198,11 +199,11 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Link to="/carts"><IconButton aria-label="cart">
-      <StyledBadge badgeContent={cartDetails.length} color="secondary">
-        <ShoppingCartIcon />
-      </StyledBadge>
-    </IconButton></Link>
+            <Link to="/cart"><IconButton aria-label="cart">
+              <StyledBadge badgeContent={cartDetails.length} color="secondary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton></Link>
             <IconButton
               size="large"
               edge="end"

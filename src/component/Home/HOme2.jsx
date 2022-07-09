@@ -1,10 +1,10 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
-import { Link,withRouter  } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import BookServices from '../../component/Service/BookService'
 import Button from '@mui/material/Button';
 import Header from '../Header/Header'
@@ -21,108 +21,126 @@ class Home2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        books: [],
+      books: [],
+      selectBoxValue: "none",
     };
-}
-
-componentDidMount() {
-  this.fetchData();
-  console.log(this.props)
-}
-
-fetchData() {
-  BookServices.getAllBooks().then((response) => {
-      this.setState({ books: response.data.data })
-      console.log(response);})
-}
-
-addToCart (bookId) {
-  const id=localStorage.getItem('Authorization')
-  const userId = JSON.parse(id);
-  console.log("UserId",userId)
-  let object = {
-    bookId: bookId,
-    quantity: 1,
   }
-  console.log("BookId",bookId)
-  console.log(object);
-  CartServices.addCartItem(object).then((response) => {
-    console.log(response);
-    window.location.reload();
-  })  
-}
-sortByLower() {
-  BookServices.sortByLower().then((response) => {
-    this.setState({ books: response.data.data })
-    
-  });
-}
 
-sortByHigher() {
-  BookServices.sortByHigher().then((response) => {
-    this.setState({ books: response.data.data })
-  });
-}
+  componentDidMount() {
+    this.fetchData();
+    console.log(this.props)
+  }
+
+  fetchData() {
+    BookServices.getAllBooks().then((response) => {
+      this.setState({ books: response.data.data })
+      console.log(response);
+    })
+  }
+
+  addToCart(bookId) {
+    const id = localStorage.getItem('Authorization')
+    const userId = JSON.parse(id);
+    console.log("UserId", userId)
+    let object = {
+      bookId: bookId,
+      quantity: 1,
+    }
+    console.log("BookId", bookId)
+    console.log(object);
+    CartServices.addCartItem(object).then((response) => {
+      console.log(response);
+      window.location.reload();
+    })
+  }
+
+  sortByLower = () => {
+    console.log("Sort to low")
+    BookServices.sortByLower().then((response) => {
+      this.setState({ books: response.data.data })
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  sortByHigher = () => {
+    console.log("High to low")
+    BookServices.sortByHigher().then((response) => {
+      this.setState({ books: response.data.data })
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  onSelect = (event) => {
+    console.log("Hello")
+    if (event.target.value === "low_to_high") {
+      console.log("High")
+
+      this.sortByLower()
+    }
+    else {
+      this.sortByHigher()
+    }
+  }
 
 
-  render =() => {
-  return (<>
-    <Header/>
-    <p style={{marginTop: "0rem",marginRight: "85rem"}}>Books:({this.state.books.length})</p>
+  render = () => {
+    return (<>
+      <Header />
+      <p style={{ marginTop: "0rem", marginRight: "85rem" }}>Books:({this.state.books.length})</p>
 
-    <FormControl sx={{ marginTop: "0rem",marginLeft: "70rem", marginbottom: "0rem"}}>
+      <FormControl sx={{ marginTop: "0rem", marginLeft: "70rem", marginbottom: "0rem" }}>
         <InputLabel htmlFor="grouped-native-select">Sort by</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select" label="Grouping">
-            <option aria-label="None"/>
-            <option onClick={() =>this.sortByLower()}>Low to high</option>
-            <option onClick={() =>this.sortByHigher()}>high to low</option>          
+        <Select native defaultValue="" id="grouped-native-select" label="Grouping" onChange={this.onSelect}>
+          <option aria-label="None" />
+          <option value="low_to_high" id="low_to_high" onClick={this.sortByLower}>Low to high</option>
+          <option value="high_to_low" id="high_to_low" onClick={this.sortByHigher}>high to low</option>
         </Select>
       </FormControl>
 
-    <div style={{ width: "100%", margin: "3rem"}}>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignContent: "stretch",
-          bgcolor: "background.paper",
-          gap: "2.5rem",
-          marginLeft: "0.5rem",
-          marginTop: "0rem",
-        }}
-      >
-        {this.state.books && this.state.books.map((book,index) => (
-         <p key={`${index}`}>
-        <Card
+      <div style={{ width: "100%", margin: "3rem" }}>
+        <Box
           sx={{
-            height: "100%",
             display: "flex",
-            flexDirection: "column",
-            border: "1px solid",
-            padding: "1rem"
-
+            flexWrap: "wrap",
+            alignContent: "stretch",
+            bgcolor: "background.paper",
+            gap: "2.5rem",
+            marginLeft: "0.5rem",
+            marginTop: "0rem",
           }}
         >
-          <FormControl>
-          <CardActionArea>
-            <CardMedia component="img" height="150" padding="1rem" width="50" src ={book.profilePic}/>
-            <CardContent>
-                 <h4>{book.bookName}</h4>
-                 <h6>{book.authorName}</h6>
-                <h5>RS.{book.price}</h5>
-                <IconButton id='btn' aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-              <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={() =>this.addToCart(book.bookId)}>Add to Cart</Button>
-            </CardContent>
-          </CardActionArea>
-          </FormControl>
-        </Card></p>
-        ))}
-      </Box>
-    </div>
-    </> 
-  );
-}
+          {this.state.books && this.state.books.map((book, index) => (
+            <p key={`${index}`}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  border: "1px solid",
+                  padding: "1rem"
+
+                }}
+              >
+                <FormControl>
+                  <CardActionArea>
+                    <CardMedia component="img" height="150" padding="1rem" width="50" src={book.profilePic} />
+                    <CardContent>
+                      <h4>{book.bookName}</h4>
+                      <h6>{book.authorName}</h6>
+                      <h5>RS.{book.price}</h5>
+                      <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={() => this.addToCart(book.bookId)}>Add to Cart</Button>
+                      
+                    </CardContent>
+                  </CardActionArea>
+                </FormControl>
+              </Card></p>
+          ))}
+        </Box>
+      </div>
+    </>
+    );
+  }
 }
 export default withRouter(Home2);

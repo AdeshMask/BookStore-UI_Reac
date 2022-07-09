@@ -21,18 +21,16 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     margin: "1rem",
     borderRadius: spacing(2), // 16px
     transition: '0.3s',
-    boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
+    boxShadow: '0px 10px 20px #1687d933',
     position: 'relative',
     width: 800,
     marginLeft: "17rem",
     overflow: 'initial',
     background: '#ffffff',
-    display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     paddingBottom: spacing(2),
     [breakpoints.up('md')]: {
-      flexDirection: 'row',
+      // flexDirection: 'row',
       paddingTop: spacing(2),
     },
   },
@@ -40,16 +38,19 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     width: '40%',
     height: 0,
     paddingBottom: '48%',
+    display: 'flex',
+    flexDirection: 'row',
     borderRadius: spacing(2),
     backgroundColor: '#fff',
     position: 'relative',
     marginRight:"5rem",
-    // [breakpoints.up('md')]: {
-    //   width: '90%',
-    //   marginLeft: spacing(-3),
-    //   marginTop: 0,
-    //   transform: 'translateX(-8px)',
-    // },
+    [breakpoints.up('md')]: {
+      width: '90%',
+      marginLeft: spacing(-3),
+      marginTop: 0,
+
+      transform: 'translateX(-8px)',
+    },
   },
   content: {
     padding: 50,
@@ -118,6 +119,28 @@ return(<>
   return (<>
      
     <Card className={cx(styles.root, shadowStyles.root)}>
+      
+    <CardMedia
+        className={styles.media}
+        image={cartItem.bookId.profilePic}
+      />
+      <CardContent>
+        
+       <h2>{cartItem.bookId.bookName}</h2>
+       <h5>by {cartItem.bookId.authorName}</h5>
+        <h5>Rs.{cartItem.bookId.price}</h5>
+        <h5>Quantity</h5>
+        <div class="wrapper">
+            <span class="minus" onClick={handleDecrement}>-</span>
+            <span class="num" id="root" onClick = {()=> updateQuantity(cartItem.bookId.quantity)}>{qty+1}</span>
+            <span class="plus" onClick={handleIncrement}>+</span>
+        </div>
+        <h4>Total Price <br/>{cartItem.bookId.price+cartItem.bookId.price * qty}</h4>
+        <Link to="/order">
+        <Button className={buttonStyles} onClick={() =>getOrder(cartItem.cartId)} >Checkout</Button></Link>
+        <Button onClick={() =>deleteCartItem(cartItem.cartId)} >Remove Item</Button>
+        
+      </CardContent>
       <CardMedia
         className={styles.media}
         image={cartItem.bookId.profilePic}
@@ -135,7 +158,7 @@ return(<>
         </div>
         <h4>Total Price <br/>{cartItem.bookId.price+cartItem.bookId.price * qty}</h4>
         <Link to="/order">
-        <Button className={buttonStyles} onClick={() =>getOrder(cartItem.cartId)} >Continue</Button></Link>
+        <Button className={buttonStyles} onClick={() =>getOrder(cartItem.cartId)} >Checkout</Button></Link>
         <Button onClick={() =>deleteCartItem(cartItem.cartId)} >Remove Item</Button>
         
       </CardContent>
@@ -146,4 +169,4 @@ return(<>
   </>)
 });
 
-export default withRouter(BlogCardDemo)
+export default BlogCardDemo

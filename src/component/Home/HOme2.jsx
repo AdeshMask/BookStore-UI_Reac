@@ -50,7 +50,8 @@ class Home2 extends Component {
     console.log(object);
     CartServices.addCartItem(object).then((response) => {
       console.log(response);
-      window.location.reload();
+      console.log(response.data.data.cartId)
+      // window.location.reload();
     })
   }
 
@@ -130,8 +131,10 @@ class Home2 extends Component {
                       <h4>{book.bookName}</h4>
                       <h6>{book.authorName}</h6>
                       <h5>RS.{book.price}</h5>
+                      <IconButton id='btn' aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
                       <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={() => this.addToCart(book.bookId)}>Add to Cart</Button>
-                      
                     </CardContent>
                   </CardActionArea>
                 </FormControl>

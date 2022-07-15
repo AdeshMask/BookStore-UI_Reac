@@ -14,7 +14,7 @@ class CartService {
         return axios.get(`${this.baseUrl}/get-all`, {params:{token: token}});
       }
 
-      getBookById(userId) {
+      getUserById(userId) {
         return axios.get(`${this.baseUrl}/search/${userId}`,{params:{token: token}});
       }
     // deleteCartItem(bookId) {

@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     alignItems: 'center',
     paddingBottom: spacing(2),
     [breakpoints.up('md')]: {
-      // flexDirection: 'row',
+      flexDirection: 'row',
       paddingTop: spacing(2),
     },
   },
@@ -95,7 +95,7 @@ Item.propTypes = {
     PropTypes.object,
   ]),
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export default function FlexDirection() {
   const styles = useStyles();
   const {
@@ -126,10 +126,13 @@ export default function FlexDirection() {
 
   const fetchCartDetails = () => {
     CartServices.getAll().then((response) => {
+      console.log(response.data.data)
       setCartDetails(response.data.data);
+      
     })
   };
   console.log(cartDetails);
+  
 
   const deleteCartItem = (bookId) => {
     console.log(bookId);
@@ -144,27 +147,13 @@ export default function FlexDirection() {
     console.log(cartId);
   }
 
-  // const addCartItem = (bookId) => {
-  //   const id = localStorage.getItem('Authorization')
-  //   const userId = JSON.parse(id);
-  //   console.log("UserId", userId)
-  //   let object = {
-  //     bookId: bookId,
-  //     quantity: 1,
-  //   }
-  //   console.log(object);
-  //   OrderServices.addOrderedItems(object).then((response) => {
-  //     console.log(response);
-  //     window.location.reload();
-  //   })
-  // }
 
   return (
     <div style={{ width: '100%' }}>
       <Header />
       <Card className={cx(styles.root, shadowStyles.root)}>
-        {cartDetails.map((cartItem, index) => {
-          return (
+        <>Hello</>
+        {cartDetails.map((cartItem) => (
             <Box
               sx={{
                 display: 'flex',
@@ -194,22 +183,22 @@ export default function FlexDirection() {
                 <h5>Rs.{cartItem.bookId.price}</h5>
                 <h5>Quantity</h5>
                 <>
-                <div class="wrapper">
-                  <span class="minus" onClick={handleDecrement}>-</span>
-                  <span class="num" id="root" onClick={() => updateQuantity(cartItem.bookId.quantity)}>{qty + 1}</span>
-                  <span class="plus" onClick={handleIncrement}>+</span><br/>
-                  <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
+                  <div class="wrapper">
+                    <span class="minus" onClick={handleDecrement}>-</span>
+                    <span class="num" id="root" onClick={() => updateQuantity(cartItem.bookId.quantity)}>{qty + 1}</span>
+                    <span class="plus" onClick={handleIncrement}>+</span><br />
+                    <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
                   </div>
-                  
+
                 </>
                 <h4>Total Price <br />{cartItem.bookId.price + cartItem.bookId.price * qty}</h4>
 
-                
+
               </div>
             </Box>
 
-          )
-        })}
+          
+        ))}
         <Link to="/customer">
           <Button variant="contained" >Continue</Button>
         </Link>

@@ -15,9 +15,10 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CartServices from '../Service/CartService'
 import { useState, useEffect } from "react";
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -123,6 +124,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>{localStorage.getItem('Name')}</MenuItem>
+      <Link to="/myorders"><h5><CardGiftcardIcon size="small" />My Orders</h5></Link>
       <Link to="/login">
         <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
       </Link>
@@ -135,7 +137,7 @@ export default function PrimarySearchAppBar() {
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'right',
+        horizontal: 'right', cartDetails
       }}
       id={mobileMenuId}
       keepMounted
@@ -149,7 +151,6 @@ export default function PrimarySearchAppBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={cartDetails.length} color="error">
-            <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>

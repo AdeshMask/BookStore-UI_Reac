@@ -7,6 +7,8 @@ import Home from './component/Home/HOme2'
 import Cart from './component/Cart/Cart'
 import Carts from './component/Cart/Carts'
 import Order from './component/Order/Order'
+import OrderSuccess from './component/Order/OrderSuccessPage'
+import MyOrders from './component/Order/MyOrders'
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/customer"><Customer /></Route>
           <Route exact path="/Order/:id"><Order /></Route>
           <Route path="/order"><Order /></Route>
+          <Route path="/ordersuccess"><OrderSuccess /></Route>
+          <Route path="/myorders"><MyOrders /></Route>
         </Switch>
       </Router>
     </div>

@@ -10,9 +10,9 @@ class CustomerServices {
     return axios.post(`${this.baseUrl}/add`, data);
   }
 
-  // getUserById(id) {
-  //   return axios.get(`${this.baseUrl}/get/${id}`);
-  // }
+  getUserById() {
+    return axios.get(`${this.baseUrl}/get/${id}`);
+  }
 }
 
 export default new CustomerServices();

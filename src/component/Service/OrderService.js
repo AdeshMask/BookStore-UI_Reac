@@ -10,13 +10,13 @@ class OrderService {
         return axios.post(`${this.baseUrl}/add`, data,{params:{token: token}});
       }
     
-    //   getAll() {
-    //     return axios.get(`${this.baseUrl}/get-all`, {params:{token: token}});
-    //   }
+      getAll() {
+        return axios.get(`${this.baseUrl}/get-all`, {params:{token: token}});
+      }
 
-    //   getBookById(userId) {
-    //     return axios.get(`${this.baseUrl}/search/${userId}`,{params:{token: token}});
-    //   }
+      getUserById() {
+        return axios.get(`${this.baseUrl}/get`,{params:{token: token}});
+      }
 
     //   updateEmployee(employeeId,data) {
     //     return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);

@@ -113,12 +113,12 @@ function Order() {
 	const [customerDetails, setCustomerDetails] = useState([]);
 
 	const fetchCustomerDetails = () => {
-		OrderService.getUserById().then((response) => {
+		CustomerServices.getUserById().then((response) => {
 			setCustomerDetails(response.data.data);
 			console.log(response.data.data);
 		})
 	};
-	console.log(customerDetails);
+	console.log(customerDetails);//null
 
 	//Fetching Cart Data
 	const [cartDetails, setCartDetails] = useState([]);
@@ -131,8 +131,8 @@ function Order() {
 	const fetchCartDetails = () => {
 		CartServices.getAll().then((response) => {
 			setCartDetails(response.data.data);
-			// localStorage.setItem('CartId', response.data.data.cartId);
-			console.log(response.data.data)
+			localStorage.setItem('CartId', response.data.data.cartId);
+
 		})
 	};
 	console.log(cartDetails);
@@ -156,16 +156,19 @@ function Order() {
 		const customerId = JSON.parse(custId);
 		console.log("CustomerId", customerId)
 		let object = {
-			customerId: customerId,
+			custId: customerId,
 		}
 		console.log(object);
 		OrderService.addOrderedItems(object).then((response) => {
 			console.log(response);
+
 			CartServices.deleteCartItems().then((response) => {
 				console.log(response);
 			})
-			// 	window.location.reload();
+			window.location.reload();
 		});
+		alert("OrderPlaced Successfully")
+		
 		history.push("/ordersuccess");
 	}
 	return (<>
@@ -249,41 +252,41 @@ function Order() {
 					</AccordionDetails>
 				</Accordion>
 				<Card className={cx(styles.root, shadowStyles.root)}>
-					{/* {cartDetails.map((cartItem, index) => { */}
-					return (
-					<Box
-						sx={{
-							display: 'flex',
-							marginRight: '50px',
-							marginLeft: '10rem',
-							alignContent: 'center',
-							flexDirection: 'row',
-							paddingLeft: '50px',
-							p: 1,
-							m: 1,
-							bgcolor: 'background.paper',
-							borderRadius: 1,
-						}}
-					> <div>
-							<Item>
-								<ImageListItem>
-									<img
-										// src={cartItem.bookId.profilePic}
-										loading="lazy"
-									/>
-								</ImageListItem>
-							</Item>
-						</div>
-						<div className="info-calss">
-							{/* <h2>{cartItem.bookId.bookName}</h2>
-									<h5>by {cartItem.bookId.authorName}</h5>
-									<h5>Rs.{cartItem.bookId.price}</h5> */}
-							<h5>Quantity</h5>
-							{/* <h4>Total Price <br />{cartItem.bookId.price + cartItem.bookId.price}</h4> */}
-						</div>
-					</Box>
-					)
-					{/* })} */}
+					{cartDetails.map((cartItem, index) => {
+						return (
+							<Box
+								sx={{
+									display: 'flex',
+									marginRight: '50px',
+									marginLeft: '10rem',
+									alignContent: 'center',
+									flexDirection: 'row',
+									paddingLeft: '50px',
+									p: 1,
+									m: 1,
+									bgcolor: 'background.paper',
+									borderRadius: 1,
+								}}
+							> <div>
+									<Item>
+										<ImageListItem>
+											<img
+												src={cartItem.book.profilePic}
+												loading="lazy"
+											/>
+										</ImageListItem>
+									</Item>
+								</div>
+								<div className="info-calss">
+									<h2>{cartItem.book.bookName}</h2>
+									<h5>by {cartItem.book.authorName}</h5>
+									<h5>Rs.{cartItem.book.price}</h5>
+									<h5>Quantity</h5>
+									<h4>Total Price <br />{cartItem.book.price + cartItem.book.price}</h4>
+								</div>
+							</Box>
+						)
+					})}
 					<Button variant="contained" style={{ marginLeft: "75%" }} onClick={order} >Checkout</Button>
 				</Card>
 

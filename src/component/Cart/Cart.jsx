@@ -137,7 +137,7 @@ export default function FlexDirection() {
   const deleteCartItem = (bookId) => {
     console.log(bookId);
     CartServices.deleteCartItem(bookId);
-    window.location.reload();
+    // window.location.reload();
   };
   const updateQuantity = (qty) => {
     let quantity = qty
@@ -171,27 +171,27 @@ export default function FlexDirection() {
                 <Item>
                   <ImageListItem>
                     <img
-                      src={cartItem.bookId.profilePic}
+                      src={cartItem.book.profilePic}
                       loading="lazy"
                     />
                   </ImageListItem>
                 </Item>
               </div>
               <div className="info-calss">
-                <h2>{cartItem.bookId.bookName}</h2>
-                <h5>by {cartItem.bookId.authorName}</h5>
-                <h5>Rs.{cartItem.bookId.price}</h5>
+                <h2>{cartItem.book.bookName}</h2>
+                <h5>by {cartItem.book.authorName}</h5>
+                <h5>Rs.{cartItem.book.price}</h5>
                 <h5>Quantity</h5>
                 <>
                   <div class="wrapper">
                     <span class="minus" onClick={handleDecrement}>-</span>
-                    <span class="num" id="root" onClick={() => updateQuantity(cartItem.bookId.quantity)}>{qty + 1}</span>
+                    <span class="num" id="root" onClick={() => updateQuantity(cartItem.book.quantity)}>{qty + 1}</span>
                     <span class="plus" onClick={handleIncrement}>+</span><br />
                     <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
                   </div>
 
                 </>
-                <h4>Total Price <br />{cartItem.bookId.price + cartItem.bookId.price * qty}</h4>
+                <h4>Total Price <br />{cartItem.book.price + cartItem.book.price * qty}</h4>
 
 
               </div>

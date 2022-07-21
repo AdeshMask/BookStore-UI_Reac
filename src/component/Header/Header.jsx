@@ -137,7 +137,7 @@ export default function PrimarySearchAppBar() {
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'right', cartDetails
+        horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
@@ -148,13 +148,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={cartDetails.length} color="error">
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
+     
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"

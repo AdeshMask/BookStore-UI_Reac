@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header'
-import Button from '@material-ui/core/Button';
-import { Link, useHistory } from 'react-router-dom';
 import ImageListItem from '@mui/material/ImageListItem';
 import cx from 'clsx';
 import Box from '@mui/material/Box';
@@ -10,7 +8,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
-import OrderServices from '../Service/OrderService'
 import OrderService from '../Service/OrderService';
 import './MyOrder.css'
 
@@ -102,83 +99,88 @@ function MyOrders() {
 		...contentStyles
 	} = useBlogTextInfoContentStyles();
 	const shadowStyles = useOverShadowStyles();
-	const [OderSummary, setOderSummary] = useState([]);
 
+	const [OderSummary, setOderSummary] = useState([]);
 	const fetchOrderDetails = () => {
 		OrderService.getUserById().then((response) => {
+			console.log(response);
 			setOderSummary(response.data.data);
-			console.log(response.data.data);			
+
 		})
 	};
 	console.log(OderSummary);
-	
+
 	useEffect(() => {
-		// fetchCartDetails();
 		fetchOrderDetails();
 	}, []);
 
 	return (
 		<div>
-			<Header />{OderSummary.map((order, index) => {
-			<Card className={cx(styles.root, shadowStyles.root)}>
-				
-				{/* return ( */}
-				<Box
-					sx={{
-						display: 'flex',
-						marginRight: '50px',
-						marginLeft: '10rem',
-						alignContent: 'center',
-						flexDirection: 'row',
-						paddingLeft: '50px',
-						p: 1,
-						m: 1,
-						bgcolor: 'background.paper',
-						borderRadius: 1,
-					}}
-				> <div>
-						<Item>
-							<ImageListItem>
-								<img
-									// src={order.bookId.profilePic}
-									loading="lazy"
-								/>
-							</ImageListItem>
-						</Item>
-					</div>
-					<div className="info-calss">
-						{/* <h2>{cartItem.bookId.bookName}</h2>
-									<h5>by {cartItem.bookId.authorName}</h5>
-									<h5>Rs.{cartItem.bookId.price}</h5> */}
-						{/* <h5>Quantity</h5> */}
-						{/* <h4>Total Price <br />{cartItem.bookId.price + cartItem.bookId.price}</h4> */}
-					</div>
-				</Box>
+			<Header />
+			{OderSummary.map((order, index) => {
+				return(
+					<>
+				<Card className={cx(styles.root, shadowStyles.root)}>
 
-				
-				<div className="header-content">
-					<div className="emp-detail-text">
-						Order Summery<div className="{order.length}"></div>
+					{/* return ( */}
+					<Box
+						sx={{
+							display: 'flex',
+							marginRight: '50px',
+							marginLeft: '10rem',
+							alignContent: 'center',
+							flexDirection: 'row',
+							paddingLeft: '50px',
+							p: 1,
+							m: 1,
+							bgcolor: 'background.paper',
+							borderRadius: 1,
+						}}
+					> <div>
+							<Item>
+								<ImageListItem>
+									<img
+										src={order.bookId.profilePic}
+										loading="lazy"
+									/>
+								</ImageListItem>
+							</Item>
+						</div>
+						<div className="info-calss">
+							 <h2>{order.bookId.bookName}</h2> 
+									<h5>by {order.bookId.authorName}</h5>
+									<h5>Rs.{order.bookId.price}</h5> 
+							 <h5>Quantity</h5> 
+							<h4>Total Price <br />{order.bookId.price + order.bookId.price}</h4>
+						</div>
+					</Box>
+
+
+					<div className="header-content">
+						<div className="emp-detail-text">
+							Order Summery<div className="{order.length}"></div>
+						</div>
 					</div>
-				</div>
-				<div className="table-main">
-					<table id="table-display" className="table">
-						<tr>
-							<th>Book Details</th>
-							<th>Customer Details</th>
-							<th>Total Price</th>
-							<th>Order Id</th>
-							<th>Ordered Id</th>
-							<th>Actions</th>
-						</tr>
-						<tbody>
+					<div className="table-main">
+						<table id="table-display" className="table">
+							<tr>
+								<th>Book Details</th>
+								<th>Customer Details</th>
+								<th>Total Price</th>
+								<th>Order Id</th>
+								<th>Ordered Id</th>
+								<th>Actions</th>
+							</tr>
+							<tbody>
 
-						</tbody>
-					</table>
+							</tbody>
+						</table>
 
-				</div>
-			</Card>
-			})} 
+					</div>
+				</Card>
+				</>
+				)
+			})}
 		</div>
 	)
 }

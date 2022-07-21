@@ -13,8 +13,6 @@ import MyOrders from './component/Order/MyOrders'
 function App() {
   return (
     <div className="App">
-
-
       <Router>
         <Switch>
           <Route path="/register"><Regiser /></Route>

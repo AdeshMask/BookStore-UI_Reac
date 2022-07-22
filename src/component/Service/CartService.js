@@ -17,12 +17,12 @@ class CartService {
       getUserById(userId) {
         return axios.get(`${this.baseUrl}/search/${userId}`,{params:{token: token}});
       }
-    // deleteCartItem(bookId) {
-    //       return axios.put(`${this.baseUrl}/delete/${bookId}`, {params:{token: token}});
-    //     }
+    deleteCartItem(bookId) {
+          return axios.put(`${this.baseUrl}/remove/${bookId}`, {params:{token: token}});
+        }
 
-      deleteCartItem(bookId) {
-        return axios.delete(`${this.baseUrl}/remove/${bookId}`, {params:{token: token}});
+    emptyCart() {
+        return axios.delete(`${this.baseUrl}/empty`, {params:{token: token}});
       }
 
 }

@@ -102,13 +102,13 @@ function MyOrders() {
 
 	const [OderSummary, setOderSummary] = useState([]);
 	const fetchOrderDetails = () => {
-		OrderService.getUserById().then((response) => {
-			console.log(response);
-			setOderSummary(response.data.data);
-
+		OrderService.getAll().then((response) => {
+			console.log(response.data.data)
+			setOderSummary(OderSummary=> [ ...OderSummary,response.data.data]);
 		})
 	};
-	console.log(OderSummary);
+	console.log(OderSummary)
+	
 
 	useEffect(() => {
 		fetchOrderDetails();
@@ -118,69 +118,69 @@ function MyOrders() {
 		<div>
 			<Header />
 			{OderSummary.map((order, index) => {
-				return(
+				return (
 					<>
-				<Card className={cx(styles.root, shadowStyles.root)}>
+						<Card className={cx(styles.root, shadowStyles.root)}>
 
-					{/* return ( */}
-					<Box
-						sx={{
-							display: 'flex',
-							marginRight: '50px',
-							marginLeft: '10rem',
-							alignContent: 'center',
-							flexDirection: 'row',
-							paddingLeft: '50px',
-							p: 1,
-							m: 1,
-							bgcolor: 'background.paper',
-							borderRadius: 1,
-						}}
-					> <div>
-							<Item>
-								<ImageListItem>
-									<img
-										src={order.bookId.profilePic}
-										loading="lazy"
-									/>
-								</ImageListItem>
-							</Item>
-						</div>
-						<div className="info-calss">
-							 <h2>{order.bookId.bookName}</h2> 
-									<h5>by {order.bookId.authorName}</h5>
-									<h5>Rs.{order.bookId.price}</h5> 
-							 <h5>Quantity</h5> 
-							<h4>Total Price <br />{order.bookId.price + order.bookId.price}</h4>
-						</div>
-					</Box>
+							{/* return ( */}
+							<Box
+								sx={{
+									display: 'flex',
+									marginRight: '50px',
+									marginLeft: '10rem',
+									alignContent: 'center',
+									flexDirection: 'row',
+									paddingLeft: '50px',
+									p: 1,
+									m: 1,
+									bgcolor: 'background.paper',
+									borderRadius: 1,
+								}}
+							> <div>
+									<Item>
+										<ImageListItem>
+											<img
+												src={order.cart.book.profilePic}
+												loading="lazy"
+											/>
+										</ImageListItem>
+									</Item>
+								</div>
+								<div className="info-calss">
+									{/* <h2>{order.orderId.cart.book.bookName}</h2>
+									<h5>by {order.orderId.cart.book.authorName}</h5>
+									<h5>Rs.{order.orderId.cart.book.price}</h5>
+									<h5>Quantity</h5>
+									<h4>Total Price <br />{order.orderId.cart.book.price + order.orderId.cart.book.price}</h4> */}
+								</div>
+							</Box>
 
 
-					<div className="header-content">
-						<div className="emp-detail-text">
-							Order Summery<div className="{order.length}"></div>
-						</div>
-					</div>
-					<div className="table-main">
-						<table id="table-display" className="table">
-							<tr>
-								<th>Book Details</th>
-								<th>Customer Details</th>
-								<th>Total Price</th>
-								<th>Order Id</th>
-								<th>Ordered Id</th>
-								<th>Actions</th>
-							</tr>
-							<tbody>
+							<div className="header-content">
+								<div className="emp-detail-text">
+									Order Summery<div className="{order.length}"></div>
+								</div>
+							</div>
+							<div className="table-main">
+								<table id="table-display" className="table">
+									<tr>
+										<th>Book Details</th>
+										<th>Customer Details</th>
+										<th>Total Price</th>
+										<th>Order Id</th>
+										<th>Ordered Id</th>
+										<th>Actions</th>
+									</tr>
+									<tbody>
 
-							</tbody>
-						</table>
+									</tbody>
+								</table>
 
-					</div>
-				</Card>
-				</>
+							</div>
+						</Card>
+					</>
 				)
-			})}
+			 })} 
 		</div>
 	)
 }

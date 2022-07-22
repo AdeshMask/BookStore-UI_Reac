@@ -9,6 +9,7 @@ import Carts from './component/Cart/Carts'
 import Order from './component/Order/Order'
 import OrderSuccess from './component/Order/OrderSuccessPage'
 import MyOrders from './component/Order/MyOrders'
+import WishList from './component/WishList/WishList'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/order"><Order /></Route>
           <Route path="/ordersuccess"><OrderSuccess /></Route>
           <Route path="/myorders"><MyOrders /></Route>
+          <Route path="/wishlist"><WishList /></Route>
         </Switch>
       </Router>
     </div>

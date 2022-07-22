@@ -184,16 +184,16 @@ export default function FlexDirection() {
                 <h5>Quantity</h5>
                 <>
                   <div class="wrapper">
-                    <span class="minus" onClick={handleDecrement}>-</span>
+                    <span class="minus" onClick={handleDecrement}> - </span>
                     <span class="num" id="root" onClick={() => updateQuantity(cartItem.book.quantity)}>{qty + 1}</span>
-                    <span class="plus" onClick={handleIncrement}>+</span><br />
-                    <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
+                    <span class="plus" onClick={handleIncrement}> + </span><br />
+                    
                   </div>
 
                 </>
                 <h4>Total Price <br />{cartItem.book.price + cartItem.book.price * qty}</h4>
 
-
+                <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
               </div>
             </Box>
 

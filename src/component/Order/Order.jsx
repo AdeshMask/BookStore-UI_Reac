@@ -18,7 +18,6 @@ import FormLabel from '@mui/material/FormLabel';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import TextField from '@mui/material/TextField';
 import CustomerServices from '../Service/CustomerServices'
-import CartServices from '../Service/CartService';
 import Button from '@material-ui/core/Button';
 import { Link, useHistory } from 'react-router-dom';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -26,6 +25,7 @@ import cx from 'clsx';
 import Box from '@mui/material/Box';
 import { Card } from '@mui/material';
 import OrderService from '../Service/OrderService'
+import CartServices from '../Service/CartService';
 
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
@@ -161,14 +161,9 @@ function Order() {
 		console.log(object);
 		OrderService.addOrderedItems(object).then((response) => {
 			console.log(response);
-
-			CartServices.deleteCartItems().then((response) => {
-				console.log(response);
-			})
-			window.location.reload();
+			// window.location.reload();
 		});
 		alert("OrderPlaced Successfully")
-		
 		history.push("/ordersuccess");
 	}
 	return (<>
@@ -281,7 +276,7 @@ function Order() {
 									<h2>{cartItem.book.bookName}</h2>
 									<h5>by {cartItem.book.authorName}</h5>
 									<h5>Rs.{cartItem.book.price}</h5>
-									<h5>Quantity</h5>
+									<h5>Quantity.{cartItem.quantity}</h5>
 									<h4>Total Price <br />{cartItem.book.price + cartItem.book.price}</h4>
 								</div>
 							</Box>

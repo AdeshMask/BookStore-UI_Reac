@@ -14,6 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
+import WishListServices from '../Service/WishListService'
 
 
 class Home2 extends Component {
@@ -52,7 +53,21 @@ class Home2 extends Component {
     CartServices.addCartItem(object).then((response) => {
       console.log(response);
       console.log(response.data.data.cartId)
-      // window.location.reload();
+      window.location.reload();
+    })
+  }
+  addToWishList(bookId) {
+    const id = localStorage.getItem('Authorization')
+    const userId = JSON.parse(id);
+    console.log("UserId", userId)
+    let object = {
+      bookId: bookId,
+    }
+    console.log("BookId", bookId)
+    console.log(object);
+    WishListServices.addToWishList(object).then((response) => {
+      console.log(response);
+      window.location.reload();
     })
   }
 
@@ -129,13 +144,15 @@ class Home2 extends Component {
                   <CardActionArea>
                     <CardMedia component="img" height="150" padding="1rem" width="50" src={book.profilePic} />
                     <CardContent>
-                      <h4>{book.bookName}</h4>
+                      <h3>{book.bookName}</h3>
                       <h6>{book.authorName}</h6>
                       <h5>RS.{book.price}</h5>
-                      <IconButton id='btn' aria-label="add to favorites">
+                      
+                      <IconButton id='btn' aria-label="add to favorites" onClick={() => this.addToWishList(book.bookId)}>
                         <FavoriteIcon />
                       </IconButton>
-                      <Button variant="contained" size="large" type="submit" className="button submitButton" id="submitButton" onClick={() => this.addToCart(book.bookId)}>Add to Cart</Button>
+                      <Button variant="contained"disabled = {book.quantity =="1"} size="large" type="submit"  id="submitButton" onClick={() => this.addToCart(book.bookId)}>{'Add to Cart'}</Button>
+                      
                     </CardContent>
                   </CardActionArea>
                 </FormControl>

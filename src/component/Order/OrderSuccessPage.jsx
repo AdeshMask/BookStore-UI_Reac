@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './OrderSuccessPage.css'
 import { Link } from 'react-router-dom';
+import OrderService from '../Service/OrderService'
+import CartServices from '../Service/CartService';
 
 function OrderSuccessPage() {
+    const [orderSuccess, setOrderId] = useState([]);
+
+    const fetchOrderCount = () => {
+        OrderService.getAll().then((response) => {
+            setOrderId(response.data.data);
+            console.log(response.data.data);
+            // CartServices.deleteCartItems().then((response) => {
+            //     console.log(response);
+            // })
+        })
+    };
+    console.log(orderSuccess);
+    useEffect(() => {
+        fetchOrderCount();
+    }, []);
     return (
         <div>
 
@@ -11,8 +28,8 @@ function OrderSuccessPage() {
                     <i className="checkmark">✓</i>
                 </div>
                 <h1>Placed Successfully</h1>
-                <p>We received your purchase request on ID --<br /> we'll be in touch shortly!</p>
-                <Link to='/home'>cleck here</Link><p>to continue</p>
+                <p>We received your purchase request<br /> on ID --{orderSuccess.length}<br /> we'll be in touch shortly!</p>
+                <Link to='/home'>click here</Link><p>to continue</p>
             </div>
         </div>
     )

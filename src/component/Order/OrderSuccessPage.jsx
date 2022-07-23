@@ -20,6 +20,8 @@ function OrderSuccessPage() {
     useEffect(() => {
         fetchOrderCount();
     }, []);
+
+    
     return (
         <div>
 

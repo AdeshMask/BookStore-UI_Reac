@@ -140,7 +140,7 @@ function MyOrders() {
 									<Item>
 										<ImageListItem>
 											<img
-												src={order.cart.book.profilePic}
+												src={order.cart.data.book.profilePic}
 												loading="lazy"
 											/>
 										</ImageListItem>

@@ -125,6 +125,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>{localStorage.getItem('Name')}</MenuItem>
       <Link to="/myorders"><h5><CardGiftcardIcon size="small" />My Orders</h5></Link>
+      <Link to="/wishlist"><h5>My WishList</h5></Link>
       <Link to="/login">
         <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
       </Link>

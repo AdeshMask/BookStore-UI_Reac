@@ -44,7 +44,7 @@ function WishList() {
             marginTop: "0rem",
           }}
         >
-          {WishList.map((book, index) => (
+          {WishList.map((wishList, index) => (
             <p key={`${index}`}>
               <Card
                 sx={{
@@ -58,11 +58,11 @@ function WishList() {
               >
                 <FormControl>
                   <CardActionArea>
-                    <CardMedia component="img" height="150" padding="1rem" width="50" src={book.profilePic} />
+                    <CardMedia component="img" height="150" padding="1rem" width="50" src={wishList.bookId.profilePic} />
                     <CardContent>
-                      <h4>{book.bookName}</h4>
-                      <h6>{book.authorName}</h6>
-                      <h5>RS.{book.price}</h5>
+                      <h4>{wishList.bookId.bookName}</h4>
+                      <h6>{wishList.bookId.authorName}</h6>
+                      <h5>RS.{wishList.bookId.price}</h5>
                       <IconButton id='btn' aria-label="add to favorites">
                         <FavoriteIcon />
                       </IconButton>

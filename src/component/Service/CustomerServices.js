@@ -2,7 +2,7 @@ import axios from "axios";
 
 const id = localStorage.getItem('CusomerId')
 const token = localStorage.getItem('Token')
-console.log(id)
+
 class CustomerServices {
   baseUrl = "http://localhost:8080/customer";
 

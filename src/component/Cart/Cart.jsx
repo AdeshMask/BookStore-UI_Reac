@@ -104,17 +104,35 @@ export default function FlexDirection() {
   } = useBlogTextInfoContentStyles();
   const shadowStyles = useOverShadowStyles();
 
-  const [qty, setQty] = useState(0);
-  function handleDecrement() {
-    if (qty == 0) {
+  let [qty, setQty] = useState(0);
+  function handleDecrement(cartId, quantity) {
+    qty = quantity - 1
+    if (quantity == 0) {
       return
     }
     else {
-      setQty(qty - 1);
+      setQty(quantity - 1);
     }
+    let object = {
+      quantity: qty,
+    }
+    CartServices.updateQuantity(cartId, object).then((response) => {
+      console.log(response.data.data)
+      window.location.reload();
+    })
   }
-  function handleIncrement() {
-    setQty(qty + 1);
+  function handleIncrement(cartId, quantity) {
+    qty = quantity + 1
+    setQty(quantity + 1);
+    let object = {
+      quantity: qty,
+    }
+    console.log(object)
+    console.log(cartId)
+    CartServices.updateQuantity(cartId, object).then((response) => {
+      console.log(response.data.data)
+      window.location.reload();
+    })
   }
 
   //Fetching Data
@@ -128,20 +146,22 @@ export default function FlexDirection() {
     CartServices.getAll().then((response) => {
       console.log(response.data.data)
       setCartDetails(response.data.data);
-      
     })
   };
   console.log(cartDetails);
-  
 
   const deleteCartItem = (bookId) => {
     console.log(bookId);
     CartServices.deleteCartItem(bookId);
-    // window.location.reload();
+    window.location.reload();
   };
-  const updateQuantity = (qty) => {
-    let quantity = qty
+  const updateQuantity = (cartId) => {
+
+    CartServices.updateQuantity(cartId).then((response) => {
+      console.log(response)
+    })
   }
+
   const getOrder = (cartId) => {
     this.props.history.push(`Order/${cartId}`);
     console.log(cartId);
@@ -154,50 +174,50 @@ export default function FlexDirection() {
       <Card className={cx(styles.root, shadowStyles.root)}>
         <>Hello</>
         {cartDetails.map((cartItem) => (
-            <Box
-              sx={{
-                display: 'flex',
-                marginRight: '50px',
-                marginLeft: '10rem',
-                alignContent: 'center',
-                flexDirection: 'row',
-                paddingLeft: '50px',
-                p: 1,
-                m: 1,
-                bgcolor: 'background.paper',
-                borderRadius: 1,
-              }}
-            > <div>
-                <Item>
-                  <ImageListItem>
-                    <img
-                      src={cartItem.book.profilePic}
-                      loading="lazy"
-                    />
-                  </ImageListItem>
-                </Item>
-              </div>
-              <div className="info-calss">
-                <h2>{cartItem.book.bookName}</h2>
-                <h5>by {cartItem.book.authorName}</h5>
-                <h5>Rs.{cartItem.book.price}</h5>
-                <h5>Quantity</h5>
-                <>
-                  <div class="wrapper">
-                    <span class="minus" onClick={handleDecrement}> - </span>
-                    <span class="num" id="root" onClick={() => updateQuantity(cartItem.book.quantity)}>{qty + 1}</span>
-                    <span class="plus" onClick={handleIncrement}> + </span><br />
-                    
-                  </div>
+          <Box
+            sx={{
+              display: 'flex',
+              marginRight: '50px',
+              marginLeft: '10rem',
+              alignContent: 'center',
+              flexDirection: 'row',
+              paddingLeft: '50px',
+              p: 1,
+              m: 1,
+              bgcolor: 'background.paper',
+              borderRadius: 1,
+            }}
+          > <div>
+              <Item>
+                <ImageListItem>
+                  <img
+                    src={cartItem.book.profilePic}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              </Item>
+            </div>
+            <div className="info-calss">
+              <h2>{cartItem.book.bookName}</h2>
+              <h5>by {cartItem.book.authorName}</h5>
+              <h5>Rs.{cartItem.book.price}</h5>
+              <h5>Quantity</h5>
+              <>
+                <div class="wrapper">
+                  <span class="minus" onClick={() => handleDecrement(cartItem.cartId, cartItem.quantity)}> - </span>
+                  <span class="num" id="root" onChange={""}>{cartItem.quantity}</span>
+                  <span class="plus" onClick={() => handleIncrement(cartItem.cartId, cartItem.quantity)}> + </span><br />
 
-                </>
-                <h4>Total Price <br />{cartItem.book.price + cartItem.book.price * qty}</h4>
+                </div>
 
-                <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
-              </div>
-            </Box>
+              </>
+              <h4>Total Price <br />{cartItem.totalPrice}</h4>
 
-          
+              <Button onClick={() => deleteCartItem(cartItem.cartId)} variant="outlined" color="secondary">Remove Item</Button>
+            </div>
+          </Box>
+
+
         ))}
         <Link to="/customer">
           <Button variant="contained" >Continue</Button>

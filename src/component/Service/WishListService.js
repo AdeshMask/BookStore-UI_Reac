@@ -2,7 +2,6 @@ import axios from "axios";
 
 const id = localStorage.getItem('CusomerId')
 const token = localStorage.getItem('Token')
-console.log(id)
 class WishList {
   baseUrl = "http://localhost:8080/wishlist";
 
@@ -13,7 +12,9 @@ class WishList {
   getWishListById() {
     return axios.get(`${this.baseUrl}/get`, { params: { token: token } });
   }
-
+  deleteWishListById(wId) {
+    return axios.delete(`${this.baseUrl}/delete/${wId}`, { params: { token: token } });
+  }
 }
 
 export default new WishList();

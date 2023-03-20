@@ -25,6 +25,7 @@ const RegistrationForm = (props) => {
         city: "",
         contact: "",
         type:"",
+        pinError:"",
 
     }
 
@@ -47,7 +48,6 @@ const RegistrationForm = (props) => {
             type: formValue.type,
             locality: formValue.locality,
             landmark: formValue.landmark,
-
         };
         console.log(object);
             CustomerServices.addperson(object).then((response) => {
@@ -60,8 +60,19 @@ const RegistrationForm = (props) => {
     }
     const onNameChange = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value });
+        const regex = new RegExp ("^[0-9]{6}", event.target.pinCode)
         console.log('value for', event.target.name, event.target.value);
     }
+    const onPinChange = (event) => {
+        setForm({ ...formValue, [event.target.name]: event.target.value });
+        const pinRegex = RegExp("^[0-9]{6}$");
+        setForm({pinCode: event.target.value});
+        if(pinRegex.test(event.target.value)){
+        setForm({pinError:''})
+        }
+        else setForm({pinError:'Incorrect name'})
+    }
+
 
     return (
         <div>
@@ -79,7 +90,10 @@ const RegistrationForm = (props) => {
                             value={formValue.name}
                             onChange={onNameChange}
                             required
-                        />	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        />	
+                    
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        
                         <TextField 
                             id="contact"
                             name="contact"
@@ -95,7 +109,9 @@ const RegistrationForm = (props) => {
                             label="Pincode" 
                             value={formValue.pinCode}
                             required
-                            onChange={onNameChange}/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            onChange={onPinChange}/>
+                            <span className="error-output">{formValue.pinError}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <TextField 
                             id="locality"
                             name="locality"

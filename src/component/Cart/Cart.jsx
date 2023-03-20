@@ -172,7 +172,6 @@ export default function FlexDirection() {
     <div style={{ width: '100%' }}>
       <Header />
       <Card className={cx(styles.root, shadowStyles.root)}>
-        <>Hello</>
         {cartDetails.map((cartItem) => (
           <Box
             sx={{
